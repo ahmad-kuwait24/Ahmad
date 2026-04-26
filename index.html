@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#111214">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>كراج المستثمر الأول</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D42B2B;
+    --red-dark: #A01F1F;
+    --red-light: #FF3B3B;
+    --dark: #111214;
+    --dark2: #1A1C20;
+    --dark3: #23262C;
+    --gray: #7A7E88;
+    --light: #F5F5F7;
+    --white: #FFFFFF;
+    --border: rgba(255,255,255,0.08);
+    --font-ar: 'Cairo', sans-serif;
+    --font-en: 'Barlow', sans-serif;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-top: env(safe-area-inset-top, 0px);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: var(--font-ar);
+    background: var(--dark);
+    color: var(--white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: calc(70px + var(--safe-bottom));
+  }
+  body.en { font-family: var(--font-en); }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 99px; }
+
+  /* ─── STATUS BAR SPACER ─── */
+  .safe-top { height: var(--safe-top); background: rgba(17,18,20,0.95); }
+
+  /* ─── TOP HEADER (mobile) ─── */
+  header {
+    position: sticky; top: 0; z-index: 900;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px; height: 58px;
+    background: rgba(17,18,20,0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    display: flex; align-items: center; gap: 9px;
+    font-size: 16px; font-weight: 900; color: var(--white); text-decoration: none;
+    flex: 1;
+  }
+  .logo-icon {
+    width: 34px; height: 34px; background: var(--red);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .logo-name { font-size: 14px; font-weight: 800; line-height: 1.2; }
+  .logo-name small { display: block; font-size: 10px; color: var(--gray); font-weight: 500; }
+  .header-actions { display: flex; align-items: center; gap: 8px; }
+  .lang-btn {
+    background: rgba(255,255,255,0.07); color: #fff; border: 1px solid var(--border);
+    padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700;
+    font-family: inherit; min-width: 38px;
+  }
+  .header-call {
+    background: var(--red); color: #fff; border: none;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; text-decoration: none; flex-shrink: 0;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 32px 20px 24px;
+    position: relative; overflow: hidden;
+    background: radial-gradient(ellipse 120% 60% at 50% 0%, rgba(212,43,43,0.14) 0%, transparent 65%),
+                var(--dark);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 20%, black 20%, transparent 90%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(212,43,43,0.15); border: 1px solid rgba(212,43,43,0.3);
+    color: #ff8a8a; font-size: 11px; font-weight: 700;
+    padding: 5px 12px; border-radius: 99px; margin-bottom: 18px;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--red-light); animation: pulse 2s infinite; flex-shrink: 0;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+  .hero h1 {
+    font-size: 30px; font-weight: 900; line-height: 1.15;
+    margin-bottom: 14px; position: relative; z-index: 1;
+  }
+  .hero h1 .highlight { color: var(--red); }
+  .hero-sub {
+    font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.75;
+    margin-bottom: 24px; position: relative; z-index: 1;
+  }
+  .hero-btns {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    position: relative; z-index: 1;
+  }
+  .btn-primary {
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    background: var(--red); color: #fff; text-decoration: none;
+    padding: 14px 12px; border-radius: 10px; font-weight: 700; font-size: 14px;
+    border: none; cursor: pointer; font-family: inherit;
+    box-shadow: 0 4px 16px rgba(212,43,43,0.3);
+    active-background: var(--red-dark);
+  }
+  .btn-secondary {
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    background: rgba(255,255,255,0.07); color: #fff; text-decoration: none;
+    padding: 14px 12px; border-radius: 10px; font-weight: 700; font-size: 14px;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  /* ─── STATS ROW ─── */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    padding: 16px 20px;
+    background: var(--dark2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .stat-card {
+    text-align: center; padding: 12px 4px;
+  }
+  .stat-num { font-size: 22px; font-weight: 900; color: #fff; line-height: 1; }
+  .stat-num span { color: var(--red); }
+  .stat-label { font-size: 10px; color: var(--gray); margin-top: 3px; line-height: 1.3; }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 32px 20px; }
+  .section-label {
+    font-size: 10px; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--red); margin-bottom: 6px; display: block;
+  }
+  .section-title { font-size: 22px; font-weight: 900; margin-bottom: 8px; }
+  .section-sub { font-size: 13px; color: var(--gray); line-height: 1.65; margin-bottom: 24px; }
+
+  /* ─── FEATURES PILLS ─── */
+  .features-scroll {
+    display: flex; gap: 10px;
+    overflow-x: auto; padding: 0 20px 4px;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .features-scroll::-webkit-scrollbar { display: none; }
+  .feature-pill {
+    display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+    background: var(--dark2); border: 1px solid var(--border);
+    padding: 10px 14px; border-radius: 10px; white-space: nowrap;
+  }
+  .feature-pill-icon { font-size: 18px; }
+  .feature-pill-text strong { display: block; font-size: 13px; font-weight: 700; }
+  .feature-pill-text span { font-size: 11px; color: var(--gray); }
+
+  /* ─── SERVICES ─── */
+  #services { background: var(--dark); }
+  .services-scroll {
+    display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px;
+    scrollbar-width: none; -ms-overflow-style: none;
+    margin: 0 -20px; padding: 0 20px 8px;
+  }
+  .services-scroll::-webkit-scrollbar { display: none; }
+  .service-card {
+    min-width: 200px; max-width: 200px;
+    background: var(--dark2); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; flex-shrink: 0;
+  }
+  .service-img-placeholder {
+    width: 100%; height: 120px; background: var(--dark3);
+    display: flex; align-items: center; justify-content: center; font-size: 42px;
+  }
+  .service-body { padding: 14px; }
+  .service-body h3 { font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+  .service-body p { font-size: 12px; color: var(--gray); line-height: 1.55; }
+  .service-tag {
+    display: inline-block; margin-top: 8px; font-size: 10px; font-weight: 700;
+    background: rgba(212,43,43,0.12); color: #ff7a7a; padding: 3px 9px; border-radius: 99px;
+  }
+
+  /* ─── GALLERY ─── */
+  #gallery { background: var(--dark2); }
+  .gallery-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+  }
+  .gallery-item {
+    border-radius: 10px; overflow: hidden; position: relative; cursor: pointer;
+    background: var(--dark3); aspect-ratio: 4/3;
+  }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery-overlay {
+    position: absolute; inset: 0; background: rgba(212,43,43,0.65);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; opacity: 0; transition: opacity 0.2s;
+  }
+  .gallery-item:active .gallery-overlay { opacity: 1; }
+  .gallery-placeholder {
+    width: 100%; height: 100%; background: var(--dark3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px; color: var(--gray);
+  }
+
+  /* ─── LIGHTBOX ─── */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 2000;
+    background: rgba(0,0,0,0.94); align-items: center; justify-content: center;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 95vw; max-height: 80vh; border-radius: 10px; }
+  .lightbox-close {
+    position: fixed; top: calc(16px + var(--safe-top)); right: 16px;
+    background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 20px;
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--dark); }
+  .contact-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .contact-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px; background: var(--dark2); border: 1px solid var(--border);
+    border-radius: 12px; text-decoration: none; color: inherit;
+  }
+  .contact-item-icon {
+    width: 42px; height: 42px; background: rgba(212,43,43,0.12);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .contact-item-text strong { display: block; font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+  .contact-item-text span { color: var(--gray); font-size: 12px; line-height: 1.45; display: block; }
+  .contact-item-text a { color: var(--red); text-decoration: none; font-size: 13px; }
+  .contact-item-arrow { margin-inline-start: auto; color: var(--gray); font-size: 14px; }
+
+  /* ─── CONTACT FORM ─── */
+  .contact-form {
+    background: var(--dark2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 22px 18px;
+  }
+  .contact-form h3 { font-size: 17px; font-weight: 700; margin-bottom: 18px; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 13px; }
+  .form-group label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.65); }
+  .form-group input, .form-group textarea, .form-group select {
+    background: var(--dark3); border: 1px solid rgba(255,255,255,0.1);
+    color: #fff; padding: 13px 14px; border-radius: 9px; font-size: 15px;
+    font-family: inherit; outline: none; width: 100%;
+    -webkit-appearance: none;
+  }
+  .form-group textarea { resize: none; min-height: 90px; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--red);
+  }
+  .form-group select option { background: var(--dark3); }
+  .form-submit {
+    width: 100%; background: var(--red); color: #fff; border: none;
+    padding: 15px; border-radius: 10px; font-size: 15px; font-weight: 800;
+    cursor: pointer; font-family: inherit;
+    box-shadow: 0 4px 16px rgba(212,43,43,0.3);
+  }
+  .form-submit:active { background: var(--red-dark); }
+  .form-submit:disabled { opacity: 0.5; }
+  .form-success {
+    display: none; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);
+    color: #4ade80; padding: 12px; border-radius: 8px; text-align: center;
+    font-size: 13px; margin-top: 12px;
+  }
+  .form-success.visible { display: block; }
+
+  /* ─── MAP ─── */
+  .map-section { padding: 0 20px 24px; }
+  .map-wrap {
+    border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
+    height: 200px; background: var(--dark3);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .map-placeholder { text-align: center; color: var(--gray); }
+  .map-placeholder .map-icon { font-size: 40px; margin-bottom: 10px; }
+  .map-placeholder p { font-size: 13px; margin-bottom: 8px; }
+  .map-placeholder a { color: var(--red); text-decoration: none; font-size: 13px; font-weight: 600; }
+
+  /* ─── BOTTOM NAV ─── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 900;
+    background: rgba(26,28,32,0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center;
+    padding: 0 0 var(--safe-bottom);
+    height: calc(62px + var(--safe-bottom));
+  }
+  .bottom-nav-inner { display: flex; width: 100%; }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px; padding: 10px 4px; text-decoration: none;
+    color: var(--gray); cursor: pointer; border: none; background: none; font-family: inherit;
+    transition: color 0.15s;
+  }
+  .nav-item.active, .nav-item:active { color: var(--red); }
+  .nav-item.cta { color: #fff; }
+  .nav-icon { font-size: 20px; line-height: 1; }
+  .nav-label { font-size: 10px; font-weight: 600; }
+  .nav-item.wa-btn {
+    flex: 1.3;
+    background: #25D366; color: #fff; border-radius: 0;
+    margin: 6px 4px; border-radius: 12px; flex: 0 0 auto; width: 50px;
+  }
+  .nav-wa-wrap {
+    flex: 0 0 auto; display: flex; align-items: center; justify-content: center;
+    padding: 6px 10px;
+  }
+  .wa-nav-btn {
+    background: #25D366; color: #fff; width: 46px; height: 46px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 22px; text-decoration: none; box-shadow: 0 2px 12px rgba(37,211,102,0.4);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark2); border-top: 1px solid var(--border);
+    padding: 28px 20px 20px;
+  }
+  .footer-brand { margin-bottom: 20px; }
+  .footer-brand .logo { margin-bottom: 10px; }
+  .footer-brand p { font-size: 13px; color: var(--gray); line-height: 1.65; }
+  .footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .footer-col h4 { font-size: 12px; font-weight: 800; margin-bottom: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; }
+  .footer-col a { display: block; font-size: 13px; color: var(--gray); text-decoration: none; margin-bottom: 7px; }
+  .footer-bottom {
+    border-top: 1px solid var(--border); padding-top: 16px; text-align: center;
+    font-size: 12px; color: var(--gray);
+  }
+
+  /* ─── SECTION DIVIDERS ─── */
+  .divider { height: 1px; background: var(--border); margin: 0 20px; }
+
+  /* ─── TOAST ─── */
+  .toast {
+    position: fixed; bottom: calc(80px + var(--safe-bottom)); left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #2a2a2e; color: #fff; padding: 11px 22px; border-radius: 99px;
+    font-size: 13px; opacity: 0; transition: all 0.25s; z-index: 9999;
+    pointer-events: none; white-space: nowrap; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ─── PULL QUOTE ─── */
+  .trust-strip {
+    display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+    margin: 0 -20px; padding: 0 20px;
+  }
+  .trust-strip::-webkit-scrollbar { display: none; }
+  .trust-item {
+    flex-shrink: 0; display: flex; flex-direction: column; align-items: center;
+    gap: 4px; padding: 16px 20px; min-width: 100px;
+    border-left: 1px solid var(--border);
+  }
+  .trust-item:first-child { border-left: none; }
+  html[dir="ltr"] .trust-item { border-left: none; border-right: 1px solid var(--border); }
+  html[dir="ltr"] .trust-item:first-child { border-right: none; }
+  .trust-icon { font-size: 20px; }
+  .trust-label { font-size: 11px; color: var(--gray); text-align: center; line-height: 1.3; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-badge, .hero h1, .hero-sub, .hero-btns {
+    animation: fadeUp 0.5s ease both;
+  }
+  .hero h1 { animation-delay: 0.08s; }
+  .hero-sub { animation-delay: 0.16s; }
+  .hero-btns { animation-delay: 0.24s; }
+
+  /* ─── ACTIVE STATES ─── */
+  .btn-primary:active { background: var(--red-dark); transform: scale(0.98); }
+  .btn-secondary:active { background: rgba(255,255,255,0.12); transform: scale(0.98); }
+  .contact-item:active { background: var(--dark3); }
+  .service-card:active { opacity: 0.85; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <div class="logo-icon">🔧</div>
+    <div class="logo-name">
+      <span id="logo-text">كراج المستثمر الأول</span>
+      <small id="logo-sub">الكويت</small>
+    </div>
+  </a>
+  <div class="header-actions">
+    <button class="lang-btn" onclick="toggleLang()">EN</button>
+    <a href="tel:+96599850175" class="header-call">📞</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-badge" id="hero-badge">خبراء معتمدون في الكويت</div>
+  <h1 id="hero-title">خبراء <span class="highlight">الدق والسمكرة</span> وصبغ السيارات</h1>
+  <p class="hero-sub" id="hero-sub">جودة عالية، سرعة في الإنجاز، وأسعار مناسبة. فنيون محترفون في الكويت.</p>
+  <div class="hero-btns">
+    <a href="tel:+96599850175" class="btn-primary" id="hero-btn1">📞 اتصل الآن</a>
+    <a href="https://wa.me/96599850175" target="_blank" class="btn-secondary" id="hero-btn2">💬 واتساب</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-num"><span id="c1">0</span><span>+</span></div>
+    <div class="stat-label" id="s1">سنة خبرة</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num"><span id="c2">0</span><span>+</span></div>
+    <div class="stat-label" id="s2">عميل راضٍ</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num"><span id="c3">0</span></div>
+    <div class="stat-label" id="s3">خدمات</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num"><span id="c4">0</span><span>%</span></div>
+    <div class="stat-label" id="s4">ضمان</div>
+  </div>
+</div>
+
+<!-- TRUST PILLS -->
+<div class="features-scroll" style="padding: 16px 20px; background: var(--dark2); border-bottom: 1px solid var(--border);">
+  <div class="feature-pill">
+    <div class="feature-pill-icon">✅</div>
+    <div class="feature-pill-text">
+      <strong id="f1t">جودة مضمونة</strong>
+      <span id="f1s">نتائج احترافية</span>
+    </div>
+  </div>
+  <div class="feature-pill">
+    <div class="feature-pill-icon">⚡</div>
+    <div class="feature-pill-text">
+      <strong id="f2t">سرعة في العمل</strong>
+      <span id="f2s">إنجاز سريع</span>
+    </div>
+  </div>
+  <div class="feature-pill">
+    <div class="feature-pill-icon">🔧</div>
+    <div class="feature-pill-text">
+      <strong id="f3t">فنيون محترفون</strong>
+      <span id="f3s">خبرة سنوات</span>
+    </div>
+  </div>
+  <div class="feature-pill">
+    <div class="feature-pill-icon">⭐</div>
+    <div class="feature-pill-text">
+      <strong id="f4t">رضا العملاء</strong>
+      <span id="f4s">أولويتنا</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <span class="section-label" id="srv-label">خدماتنا</span>
+  <div class="section-title" id="srv-title">ماذا نقدم لك؟</div>
+  <div class="section-sub" id="srv-sub">مجموعة شاملة من خدمات السيارات بأعلى معايير الجودة</div>
+  <div class="services-scroll" id="servicesGrid"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <span class="section-label" id="gal-label">معرض الأعمال</span>
+  <div class="section-title" id="gal-title">أعمالنا تتحدث عنا</div>
+  <div class="section-sub" id="gal-sub">نماذج من أعمالنا الاحترافية</div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <span class="section-label" id="cnt-label">تواصل معنا</span>
+  <div class="section-title" id="cnt-title">نحن هنا لمساعدتك</div>
+  <div class="section-sub" id="cnt-sub">استشارة مجانية أو حجز موعد</div>
+
+  <div class="contact-items">
+    <a href="tel:+96599850175" class="contact-item">
+      <div class="contact-item-icon">📞</div>
+      <div class="contact-item-text">
+        <strong id="ci1t">الهاتف</strong>
+        <span>99850175</span>
+      </div>
+      <span class="contact-item-arrow">›</span>
+    </a>
+    <a href="https://wa.me/96599850175" target="_blank" class="contact-item">
+      <div class="contact-item-icon">💬</div>
+      <div class="contact-item-text">
+        <strong id="ci2t">واتساب</strong>
+        <span>+965 99850175</span>
+      </div>
+      <span class="contact-item-arrow">›</span>
+    </a>
+    <div class="contact-item">
+      <div class="contact-item-icon">📍</div>
+      <div class="contact-item-text">
+        <strong id="ci3t">الموقع</strong>
+        <span id="ci3v">الكويت - الشرق - المنطقة الصناعية<br>مقابل الغانم - خلف إحسان دانة</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-item-icon">🕐</div>
+      <div class="contact-item-text">
+        <strong id="ci4t">ساعات العمل</strong>
+        <span id="ci4v">السبت - الخميس: 8ص - 8م</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form">
+    <h3 id="form-title">أرسل لنا رسالة</h3>
+    <div class="form-group">
+      <label id="lbl-name">الاسم</label>
+      <input type="text" id="inp-name" placeholder="اسمك الكريم" autocomplete="name">
+    </div>
+    <div class="form-group">
+      <label id="lbl-phone">رقم الهاتف</label>
+      <input type="tel" id="inp-phone" placeholder="+965XXXXXXXX" autocomplete="tel">
+    </div>
+    <div class="form-group">
+      <label id="lbl-service">نوع الخدمة</label>
+      <select id="inp-service">
+        <option value="" id="opt-default">اختر الخدمة</option>
+        <option value="body" id="opt1">دق وسمكرة</option>
+        <option value="paint" id="opt2">صبغ السيارات</option>
+        <option value="scratch" id="opt3">إزالة الخدوش</option>
+        <option value="repair" id="opt4">تصليح كامل</option>
+        <option value="efi" id="opt5">خدمة EFI</option>
+        <option value="weld" id="opt6">لحام السيارات</option>
+        <option value="detail" id="opt7">تلميع وتفصيل</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label id="lbl-msg">الرسالة</label>
+      <textarea id="inp-msg" placeholder="صف حالة سيارتك أو استفسارك..."></textarea>
+    </div>
+    <button class="form-submit" id="form-submit" onclick="submitForm()">إرسال الرسالة 📨</button>
+    <div class="form-success" id="form-success">✅ تم إرسال رسالتك! سنتواصل معك قريباً.</div>
+  </div>
+</section>
+
+<!-- MAP -->
+<div class="map-section">
+  <div class="map-wrap">
+    <div class="map-placeholder">
+      <div class="map-icon">📍</div>
+      <p id="map-text">الكويت - الشرق - المنطقة الصناعية</p>
+      <a href="https://maps.google.com/?q=Kuwait+Sharq+Industrial+Area" target="_blank" id="map-link">افتح في خرائط Google ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="logo" style="margin-bottom:10px; display:inline-flex;">
+      <div class="logo-icon">🔧</div>
+      <span id="footer-logo" style="margin-inline-start:9px; font-size:15px; font-weight:900;">كراج المستثمر الأول</span>
+    </a>
+    <p id="footer-desc">خبراء في الدق والسمكرة وصبغ السيارات في الكويت. جودة عالية، سرعة في الإنجاز.</p>
+  </div>
+  <div class="footer-links">
+    <div class="footer-col">
+      <h4 id="fl1-title">روابط</h4>
+      <a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+      <a href="#services" data-ar="الخدمات" data-en="Services">الخدمات</a>
+      <a href="#gallery" data-ar="المعرض" data-en="Gallery">المعرض</a>
+      <a href="#contact" data-ar="تواصل" data-en="Contact">تواصل</a>
+    </div>
+    <div class="footer-col">
+      <h4 id="fl2-title">خدماتنا</h4>
+      <a href="#services" id="fl2-1">دق وسمكرة</a>
+      <a href="#services" id="fl2-2">صبغ السيارات</a>
+      <a href="#services" id="fl2-3">إزالة الخدوش</a>
+      <a href="#services" id="fl2-4">تلميع وتفصيل</a>
+    </div>
+  </div>
+  <div class="footer-bottom" id="footer-copy">© 2026 كراج المستثمر الأول • الكويت</div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a href="#home" class="nav-item active" id="nav-home" onclick="setActiveNav(this)">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label" data-ar="الرئيسية" data-en="Home">الرئيسية</span>
+    </a>
+    <a href="#services" class="nav-item" id="nav-services" onclick="setActiveNav(this)">
+      <span class="nav-icon">🔧</span>
+      <span class="nav-label" data-ar="الخدمات" data-en="Services">الخدمات</span>
+    </a>
+    <div class="nav-wa-wrap">
+      <a href="https://wa.me/96599850175" target="_blank" class="wa-nav-btn">💬</a>
+    </div>
+    <a href="#gallery" class="nav-item" id="nav-gallery" onclick="setActiveNav(this)">
+      <span class="nav-icon">🖼️</span>
+      <span class="nav-label" data-ar="المعرض" data-en="Gallery">المعرض</span>
+    </a>
+    <a href="#contact" class="nav-item" id="nav-contact" onclick="setActiveNav(this)">
+      <span class="nav-icon">📞</span>
+      <span class="nav-label" data-ar="تواصل" data-en="Contact">تواصل</span>
+    </a>
+  </div>
+</nav>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA ───
+const services = {
+  ar: [
+    { icon: '🔨', title: 'دق وسمكرة', desc: 'إصلاح الأضرار الهيكلية وتقويم الأجزاء المعطوبة باحترافية عالية.', tag: 'الأكثر طلباً' },
+    { icon: '🎨', title: 'صبغ السيارات', desc: 'خدمة صبغ كاملة بألوان عالية الجودة مع إتمام احترافي.', tag: '' },
+    { icon: '✨', title: 'إزالة الخدوش', desc: 'تقنيات حديثة لإزالة الخدوش واستعادة مظهر سيارتك.', tag: '' },
+    { icon: '🔧', title: 'تصليح كامل', desc: 'خدمة تصليح شاملة تغطي جميع أجزاء هيكل السيارة.', tag: '' },
+    { icon: '💻', title: 'خدمة EFI', desc: 'تشخيص وصيانة أنظمة الحقن الإلكتروني الحديثة.', tag: '' },
+    { icon: '⚙️', title: 'لحام السيارات', desc: 'خدمات لحام دقيقة لضمان متانة وسلامة هيكل سيارتك.', tag: '' },
+    { icon: '🌟', title: 'تلميع وتفصيل', desc: 'تلميع احترافي يعيد لسيارتك بريقها ويحمي طلاءها.', tag: '' },
+  ],
+  en: [
+    { icon: '🔨', title: 'Denting & Body Work', desc: 'Professional structural damage repair and panel straightening.', tag: 'Most Popular' },
+    { icon: '🎨', title: 'Car Painting', desc: 'Full paint service with premium quality colors and professional finish.', tag: '' },
+    { icon: '✨', title: 'Scratch Removal', desc: 'Modern techniques to remove scratches and restore your car\'s look.', tag: '' },
+    { icon: '🔧', title: 'Full Repair', desc: 'Comprehensive repair service covering all body and structural parts.', tag: '' },
+    { icon: '💻', title: 'EFI Diagnostics', desc: 'Diagnosis and maintenance of modern electronic injection systems.', tag: '' },
+    { icon: '⚙️', title: 'Car Welding', desc: 'Precision welding for durability and structural safety.', tag: '' },
+    { icon: '🌟', title: 'Car Detailing', desc: 'Professional polishing to restore shine and protect paint.', tag: '' },
+  ]
+};
+
+const galleryImgs = [
+  'https://images.unsplash.com/photo-1597764690523-15bea4c581c9?w=600',
+  'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600',
+  'https://images.unsplash.com/photo-1515923162033-2f0b6b4cbb56?w=600',
+  'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600',
+  'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600',
+  'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600',
+  'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600',
+  'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600',
+];
+
+// ─── LANG ───
+let isAr = true;
+const translations = {
+  'logo-text': { ar: 'كراج المستثمر الأول', en: 'Al Mustathmir Garage' },
+  'logo-sub': { ar: 'الكويت', en: 'Kuwait' },
+  'footer-logo': { ar: 'كراج المستثمر الأول', en: 'Al Mustathmir Garage' },
+  'hero-badge': { ar: 'خبراء معتمدون في الكويت', en: 'Certified Experts in Kuwait' },
+  'hero-sub': { ar: 'جودة عالية، سرعة في الإنجاز، وأسعار مناسبة. فنيون محترفون في الكويت.', en: 'High quality, fast turnaround, and great prices. Expert technicians in Kuwait.' },
+  'hero-btn1': { ar: '📞 اتصل الآن', en: '📞 Call Now' },
+  'hero-btn2': { ar: '💬 واتساب', en: '💬 WhatsApp' },
+  's1': { ar: 'سنة خبرة', en: 'Yrs Exp.' },
+  's2': { ar: 'عميل راضٍ', en: 'Clients' },
+  's3': { ar: 'خدمات', en: 'Services' },
+  's4': { ar: 'ضمان', en: 'Quality' },
+  'f1t': { ar: 'جودة مضمونة', en: 'Quality' },
+  'f1s': { ar: 'نتائج احترافية', en: 'Professional results' },
+  'f2t': { ar: 'سرعة في العمل', en: 'Fast Service' },
+  'f2s': { ar: 'إنجاز سريع', en: 'Quick turnaround' },
+  'f3t': { ar: 'فنيون محترفون', en: 'Expert Techs' },
+  'f3s': { ar: 'خبرة سنوات', en: 'Years of expertise' },
+  'f4t': { ar: 'رضا العملاء', en: 'Satisfaction' },
+  'f4s': { ar: 'أولويتنا', en: 'Always first' },
+  'srv-label': { ar: 'خدماتنا', en: 'Our Services' },
+  'srv-title': { ar: 'ماذا نقدم لك؟', en: 'What We Offer' },
+  'srv-sub': { ar: 'مجموعة شاملة من خدمات السيارات بأعلى معايير الجودة', en: 'Comprehensive auto services to the highest standards' },
+  'gal-label': { ar: 'معرض الأعمال', en: 'Our Work' },
+  'gal-title': { ar: 'أعمالنا تتحدث عنا', en: 'Our Work Speaks' },
+  'gal-sub': { ar: 'نماذج من أعمالنا الاحترافية', en: 'Samples of our professional work' },
+  'cnt-label': { ar: 'تواصل معنا', en: 'Contact Us' },
+  'cnt-title': { ar: 'نحن هنا لمساعدتك', en: "We're Here to Help" },
+  'cnt-sub': { ar: 'استشارة مجانية أو حجز موعد', en: 'Free consultation or book an appointment' },
+  'ci1t': { ar: 'الهاتف', en: 'Phone' },
+  'ci2t': { ar: 'واتساب', en: 'WhatsApp' },
+  'ci3t': { ar: 'الموقع', en: 'Location' },
+  'ci3v': { ar: 'الكويت - الشرق - المنطقة الصناعية<br>مقابل الغانم - خلف إحسان دانة', en: 'Kuwait - Sharq - Industrial Area<br>Opp. Al Ghanim - Behind Ihsan Dana' },
+  'ci4t': { ar: 'ساعات العمل', en: 'Working Hours' },
+  'ci4v': { ar: 'السبت - الخميس: 8ص - 8م', en: 'Sat - Thu: 8AM - 8PM' },
+  'form-title': { ar: 'أرسل لنا رسالة', en: 'Send Us a Message' },
+  'lbl-name': { ar: 'الاسم', en: 'Name' },
+  'lbl-phone': { ar: 'رقم الهاتف', en: 'Phone' },
+  'lbl-service': { ar: 'نوع الخدمة', en: 'Service' },
+  'lbl-msg': { ar: 'الرسالة', en: 'Message' },
+  'opt-default': { ar: 'اختر الخدمة', en: 'Select Service' },
+  'opt1': { ar: 'دق وسمكرة', en: 'Denting & Body Work' },
+  'opt2': { ar: 'صبغ السيارات', en: 'Car Painting' },
+  'opt3': { ar: 'إزالة الخدوش', en: 'Scratch Removal' },
+  'opt4': { ar: 'تصليح كامل', en: 'Full Repair' },
+  'opt5': { ar: 'خدمة EFI', en: 'EFI Diagnostics' },
+  'opt6': { ar: 'لحام السيارات', en: 'Car Welding' },
+  'opt7': { ar: 'تلميع وتفصيل', en: 'Car Detailing' },
+  'form-submit': { ar: 'إرسال الرسالة 📨', en: 'Send Message 📨' },
+  'form-success': { ar: '✅ تم إرسال رسالتك! سنتواصل معك قريباً.', en: '✅ Message sent! We\'ll contact you soon.' },
+  'inp-name': { ar: 'اسمك الكريم', en: 'Your Name', isPH: true },
+  'inp-phone': { ar: '+965XXXXXXXX', en: '+965XXXXXXXX', isPH: true },
+  'inp-msg': { ar: 'صف حالة سيارتك أو استفسارك...', en: 'Describe your car\'s condition...', isPH: true },
+  'map-text': { ar: 'الكويت - الشرق - المنطقة الصناعية', en: 'Kuwait - Sharq - Industrial Area' },
+  'map-link': { ar: 'افتح في خرائط Google ↗', en: 'Open in Google Maps ↗' },
+  'footer-desc': { ar: 'خبراء في الدق والسمكرة وصبغ السيارات في الكويت. جودة عالية، سرعة في الإنجاز.', en: 'Experts in denting, body work and painting in Kuwait.' },
+  'fl1-title': { ar: 'روابط', en: 'Links' },
+  'fl2-title': { ar: 'خدماتنا', en: 'Services' },
+  'fl2-1': { ar: 'دق وسمكرة', en: 'Denting' },
+  'fl2-2': { ar: 'صبغ السيارات', en: 'Painting' },
+  'fl2-3': { ar: 'إزالة الخدوش', en: 'Scratches' },
+  'fl2-4': { ar: 'تلميع وتفصيل', en: 'Detailing' },
+  'footer-copy': { ar: '© 2026 كراج المستثمر الأول • الكويت', en: '© 2026 Al Mustathmir Garage • Kuwait' },
+};
+
+const heroTitles = {
+  ar: 'خبراء <span class="highlight">الدق والسمكرة</span> وصبغ السيارات',
+  en: 'Experts in <span class="highlight">Denting & Painting</span>'
+};
+
+function toggleLang() {
+  isAr = !isAr;
+  const lang = isAr ? 'ar' : 'en';
+  document.querySelector('.lang-btn').textContent = isAr ? 'EN' : 'عر';
+  document.documentElement.lang = lang;
+  document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+  document.body.classList.toggle('en', !isAr);
+
+  document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+    el.textContent = isAr ? el.dataset.ar : el.dataset.en;
+  });
+
+  for (const [id, vals] of Object.entries(translations)) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    if (vals.isPH) el.placeholder = vals[lang];
+    else if (id === 'ci3v' || id === 'ci4v') el.innerHTML = vals[lang];
+    else el.textContent = vals[lang];
+  }
+
+  document.getElementById('hero-title').innerHTML = heroTitles[lang];
+  renderServices();
+  showToast(isAr ? 'تم التبديل إلى العربية' : 'Switched to English');
+}
+
+// ─── RENDER ───
+function renderServices() {
+  const lang = isAr ? 'ar' : 'en';
+  document.getElementById('servicesGrid').innerHTML = services[lang].map(s => `
+    <div class="service-card">
+      <div class="service-img-placeholder">${s.icon}</div>
+      <div class="service-body">
+        <h3>${s.title}</h3>
+        <p>${s.desc}</p>
+        ${s.tag ? `<span class="service-tag">${s.tag}</span>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderGallery() {
+  document.getElementById('galleryGrid').innerHTML = galleryImgs.map((src, i) => `
+    <div class="gallery-item" onclick="openLightbox('${src}')">
+      <img src="${src}" alt="Work ${i+1}" loading="lazy" onerror="this.style.display='none'">
+      <div class="gallery-overlay">🔍</div>
+    </div>
+  `).join('');
+}
+
+// ─── LIGHTBOX ───
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// ─── FORM ───
+function submitForm() {
+  const name = document.getElementById('inp-name').value.trim();
+  const phone = document.getElementById('inp-phone').value.trim();
+  const service = document.getElementById('inp-service').value;
+  const msg = document.getElementById('inp-msg').value.trim();
+  if (!name || !phone) {
+    showToast(isAr ? '⚠️ يرجى ملء الاسم ورقم الهاتف' : '⚠️ Please fill name and phone');
+    return;
+  }
+  const btn = document.getElementById('form-submit');
+  btn.disabled = true;
+  btn.textContent = isAr ? 'جارٍ الإرسال...' : 'Sending...';
+  const text = `${isAr ? 'كراج المستثمر الأول - طلب جديد' : 'Al Mustathmir Garage - New Request'}%0A${isAr?'الاسم':'Name'}: ${name}%0A${isAr?'الهاتف':'Phone'}: ${phone}%0A${isAr?'الخدمة':'Service'}: ${service}%0A${isAr?'الرسالة':'Message'}: ${msg}`;
+  setTimeout(() => {
+    const succ = document.getElementById('form-success');
+    succ.textContent = translations['form-success'][isAr ? 'ar' : 'en'];
+    succ.classList.add('visible');
+    btn.textContent = translations['form-submit'][isAr ? 'ar' : 'en'];
+    btn.disabled = false;
+    ['inp-name','inp-phone','inp-service','inp-msg'].forEach(id => document.getElementById(id).value = '');
+    setTimeout(() => succ.classList.remove('visible'), 5000);
+    window.open(`https://wa.me/96599850175?text=${text}`, '_blank');
+  }, 900);
+}
+
+// ─── TOAST ───
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ─── COUNTERS ───
+function animateCounter(id, target) {
+  const el = document.getElementById(id);
+  let start = 0;
+  const step = target / (1400 / 16);
+  const timer = setInterval(() => {
+    start = Math.min(start + step, target);
+    el.textContent = Math.floor(start);
+    if (start >= target) clearInterval(timer);
+  }, 16);
+}
+animateCounter('c1', 15);
+animateCounter('c2', 5000);
+animateCounter('c3', 7);
+animateCounter('c4', 100);
+
+// ─── BOTTOM NAV ACTIVE ───
+function setActiveNav(el) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── SCROLL SPY ───
+window.addEventListener('scroll', () => {
+  const sections = ['home','services','gallery','contact'];
+  const sp = window.scrollY + 100;
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    const nav = document.getElementById('nav-' + id);
+    if (!el || !nav) return;
+    if (sp >= el.offsetTop && sp < el.offsetTop + el.offsetHeight) {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      nav.classList.add('active');
+    }
+  });
+}, { passive: true });
+
+// ─── INIT ───
+renderServices();
+renderGallery();
+</script>
+</body>
+</html>
